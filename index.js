@@ -64,6 +64,8 @@ function resetLightsToStarter() {
   setLights(31, 01);
 }
 
+resetLightsToStarter();
+
 // Send keypresses when we get a MIDI message
 apcin.on("noteon", (msg) => {
   const key = bindings[msg.note];
