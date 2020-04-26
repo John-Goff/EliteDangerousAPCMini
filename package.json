@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "easymidi": "^1.0.3",
-    "robotjs": "^0.6.0"
+    "robotjs": "^0.6.0",
+    "ws": "^7.2.5"
   }
 }
