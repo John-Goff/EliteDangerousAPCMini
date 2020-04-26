@@ -8,7 +8,7 @@ const easymidi = require('easymidi');
 // Set up MIDI input and output
 const inputName = easymidi.getInputs().find((str) => str.startsWith("APC MINI"));
 const apcin = new easymidi.Input(inputName);
-const outputName = easymidi.getInputs().find((str) => str.startsWith("APC MINI"));
+const outputName = easymidi.getOutputs().find((str) => str.startsWith("APC MINI"));
 const apcout = new easymidi.Output(outputName);
 
 // Configure keybindings
@@ -23,7 +23,7 @@ const bindings = {
   58: "1",    // Contacts
   59: "2",    // Comms
   35: "l",    // lights
-  27: "Home", // Cargo scoop
+  27: "home", // Cargo scoop
   60: "3",    // Helm
   36: "c",    // Night Vision
   28: "/",    // Landing gear
