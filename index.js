@@ -103,3 +103,21 @@ ws.on('message', (data) => {
     console.log(eventData);
   }
 });
+
+// Shutdown
+if (process.platform === "win32") {
+  const rl = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.on("SIGINT", function () {
+    process.emit("SIGINT");
+  });
+}
+
+process.on("SIGINT", function () {
+  // turn off all lights
+  Array(89).fill().map((_, i) => { setLights(i, 0) });
+  process.exit();
+});
