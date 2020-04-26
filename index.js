@@ -66,7 +66,13 @@ function resetLightsToStarter() {
 
 // Send keypresses when we get a MIDI message
 apcin.on("noteon", (msg) => {
-  robot.keyTap(bindings[msg.note]);
+  const key = bindings[msg.note];
+  if (!key) return;
+  try {
+    robot.keyTap(key);
+  } catch (e) {
+    console.error(`Unknown key: ${key}`);
+  }
 });
 
 // Journal Server connection
