@@ -183,5 +183,6 @@ function setFlagLights(midiout, flag) {
 // Exports
 module.exports = {
   resetLightsToStarter,
-  setLights
+  setLights,
+  updateLights
 }
