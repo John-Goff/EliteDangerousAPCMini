@@ -1,0 +1,15 @@
+{
+  "name": "elitedangerousapcminiclient",
+  "version": "1.0.0",
+  "description": "Client server for Elite Dangerous Journal Server to control an APC mini",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Goff",
+  "license": "MIT",
+  "dependencies": {
+    "easymidi": "^1.0.3",
+    "robotjs": "^0.6.0"
+  }
+}
