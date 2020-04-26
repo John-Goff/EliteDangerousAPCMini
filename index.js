@@ -2,7 +2,7 @@
 
 // Imports
 const WebSocket = require('ws');
-const robot = require('robotjs');
+const sendkeys = require('sendkeys');
 const easymidi = require('easymidi');
 const { resetLightsToStarter, setLights, updateLights } = require("./lights.js");
 
@@ -48,8 +48,10 @@ apcin.on("noteon", (msg) => {
   const key = bindings[msg.note];
   if (!key) return;
   try {
-    robot.keyTap(key);
+    sendkeys.sync(key);
+    console.log(`Key pressed: ${key}`);
   } catch (e) {
+    console.error(e);
     console.error(`Unknown key: ${key}`);
   }
 });
