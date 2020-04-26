@@ -43,6 +43,25 @@ function resetLightsToStarter(midiout) {
   setLights(midiout, 07, YELLOW);
 }
 
+function updateLights(midiout, payload) {
+  if (payload.Pips && Array.isArray(payload.Pips)) {
+    [sys, eng, wep] = payload.Pips;
+    setPipLights(midiout, sys, 05)
+    setPipLights(midiout, eng, 14)
+    setPipLights(midiout, wep, 07)
+  }
+}
+
+function setPipLights(midiout, pips, id) {
+  if (pips <= 1) {
+    setLights(midiout, id, RED);
+  } else if (pips < 7) {
+    setLights(midiout, id, YELLOW);
+  } else {
+    setLights(midiout, id, GREEN);
+  }
+}
+
 // Exports
 module.exports = {
   resetLightsToStarter,

@@ -4,7 +4,7 @@
 const WebSocket = require('ws');
 const robot = require('robotjs');
 const easymidi = require('easymidi');
-const { resetLightsToStarter, setLights } = require("lights.js");
+const { resetLightsToStarter, setLights, updateLights } = require("./lights.js");
 
 // Set up MIDI input and output
 const inputName = easymidi.getInputs().find((str) => str.startsWith("APC MINI"));
@@ -41,7 +41,7 @@ const bindings = {
   7:  "d"     // Pips to wep
 }
 
-resetLightsToStarter();
+resetLightsToStarter(apcout);
 
 // Send keypresses when we get a MIDI message
 apcin.on("noteon", (msg) => {
@@ -78,6 +78,7 @@ ws.on('message', (data) => {
   // new status event
   if (payload.event !== 'Fileheader') {
     console.log(eventData);
+    updateLights(apcout, payload);
   }
 });
 
@@ -95,6 +96,6 @@ if (process.platform === "win32") {
 
 process.on("SIGINT", function () {
   // turn off all lights
-  Array(89).fill().map((_, i) => { setLights(i, 0) });
+  Array(89).fill().map((_, i) => { setLights(apcout, i, 0) });
   process.exit();
 });
