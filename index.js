@@ -4,6 +4,7 @@
 const WebSocket = require('ws');
 const robot = require('robotjs');
 const easymidi = require('easymidi');
+const { resetLightsToStarter, setLights } = require("lights.js");
 
 // Set up MIDI input and output
 const inputName = easymidi.getInputs().find((str) => str.startsWith("APC MINI"));
@@ -13,55 +14,31 @@ const apcout = new easymidi.Output(outputName);
 
 // Configure keybindings
 const bindings = {
-  56: "u",    // hardpoints
+  56: "u",    // hardpoints         COL 1
   48: "v",    // Heatsink
   32: "m",    // Mode switch
   24: "'",    // FSS
   8:  "r",    // Thrust up
   0:  "f",    // Thrust down
-  57: "g",    // Next Target
-  58: "1",    // Contacts
-  59: "2",    // Comms
+  57: "g",    // Next Target        COL 2
+  58: "1",    // Contacts           COL 3
+  59: "2",    // Comms              COL 4
   35: "l",    // lights
   27: "home", // Cargo scoop
-  60: "3",    // Helm
+  60: "3",    // Helm               COL 5
   36: "c",    // Night Vision
   28: "/",    // Landing gear
-  61: "4",    // Ship
-  62: ";",    // 75% throttle
-  63: "j",    // Frame Shift Drive
+  61: "4",    // Ship               COL 6
+  5:  "a",    // Pips to sys
+  62: ";",    // 75% throttle       COL 7
+  14: "w",    // Pips to eng
+  6:  "s",    // Reset pips
+  63: "j",    // Frame Shift Drive  COL 8
   55: "k",    // Supercruise
   47: ",",    // Next system
   39: "b",    // Galaxy Map
-  31: "]"     // System Map
-}
-
-function setLights(button, colour) {
-  apcout.send("noteon", { note: button, velocity: colour });
-}
-
-function resetLightsToStarter() {
-  setLights(56, 03);
-  setLights(48, 05);
-  setLights(32, 03);
-  setLights(24, 05);
-  setLights(08, 03);
-  setLights(00, 03);
-  setLights(57, 01);
-  setLights(58, 05);
-  setLights(59, 05);
-  setLights(35, 05);
-  setLights(27, 01);
-  setLights(60, 05);
-  setLights(36, 01);
-  setLights(28, 05);
-  setLights(61, 05);
-  setLights(62, 01);
-  setLights(63, 01);
-  setLights(55, 01);
-  setLights(47, 05);
-  setLights(39, 01);
-  setLights(31, 01);
+  31: "]",    // System Map
+  7:  "d"     // Pips to wep
 }
 
 resetLightsToStarter();
