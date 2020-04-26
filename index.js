@@ -6,8 +6,10 @@ const robot = require('robotjs');
 const easymidi = require('easymidi');
 
 // Set up MIDI input and output
-const apcin = new easymidi.Input("APC MINI");
-const apcout = new easymidi.Output("APC MINI");
+const inputName = easymidi.getInputs().find((str) => str.startsWith("APC MINI"));
+const apcin = new easymidi.Input(inputName);
+const outputName = easymidi.getInputs().find((str) => str.startsWith("APC MINI"));
+const apcout = new easymidi.Output(outputName);
 
 // Configure keybindings
 const bindings = {
