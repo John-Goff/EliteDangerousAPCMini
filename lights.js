@@ -158,8 +158,8 @@ function setFlagLights(midiout, flag) {
   }
 
   if (flag & ED_CantFSD) {
-    setLights(midiout, 63, GREEN_FLASH);
-    setLights(midiout, 55, GREEN_FLASH);
+    setLights(midiout, 63, RED);
+    setLights(midiout, 55, RED);
   } else if (flag & ED_FSDCharging) {
     setLights(midiout, 63, GREEN_FLASH);
     setLights(midiout, 55, GREEN_FLASH);
