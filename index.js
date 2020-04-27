@@ -51,8 +51,11 @@ if (process.platform === "win32") {
   });
 }
 
-process.on("SIGINT", function () {
+function exitGracefully() {
   // turn off all lights
   Array(89).fill().map((_, i) => { setLights(apcout, i, 0) });
   process.exit();
-});
+}
+
+process.on("SIGINT", exitGracefully);
+process.on("SIGTERM", exitGracefully);
