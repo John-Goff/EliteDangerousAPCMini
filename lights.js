@@ -158,6 +158,7 @@ function setFlagLights(midiout, flag) {
   }
 
   if (flag & ED_CantFSD) {
+    console.log("FSD cannot charge right now");
     setLights(midiout, 63, RED);
     setLights(midiout, 55, RED);
   } else {
