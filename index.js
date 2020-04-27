@@ -57,5 +57,14 @@ function exitGracefully() {
   process.exit();
 }
 
+process.on("exit", exitGracefully);
 process.on("SIGINT", exitGracefully);
+process.on("SIGUSR1", exitGracefully);
+process.on("SIGUSR2", exitGracefully);
 process.on("SIGTERM", exitGracefully);
+process.on("uncaughtException", function (e) {
+  console.log('Uncaught Exception...');
+  console.log(e.stack);
+  Array(89).fill().map((_, i) => { setLights(apcout, i, 0) });
+  process.exit(99);
+});
