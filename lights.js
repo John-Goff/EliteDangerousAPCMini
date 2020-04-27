@@ -164,6 +164,7 @@ function setFlagLights(midiout, flag) {
     setLights(midiout, 63, GREEN);
     setLights(midiout, 55, GREEN);
   }
+  console.log(`can't fsd:\n\tmask:${ED_CantFSD.toString(2)}\n\tflags: ${flag.toString(2)}\n\tresult: ${(flag & ED_CantFSD).toString(2)}`);
 
   if (flag & ED_FSDCharging) {
     setLights(midiout, 63, GREEN_FLASH);
