@@ -34,11 +34,6 @@ nan@^2.3.3:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha512-isWHgVjnFjh2x2yuJ/tj3JbwoHu3UC2dX5G/88Cm24yB6YopVgxvBObDY7n5xW6ExmFhJpSEQqFPvq9zaXc8Jw==
 
-sendkeys@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/sendkeys/-/sendkeys-1.1.1.tgz#0633d1c8baef66670056f8755f27ce04c89cb019"
-  integrity sha512-gULQPxLKyfNRb83XWXAA0eJu8J+uwY6my1oI1+efN8rH6AUX6KgayweI+yn2qX1fL4iBibS59L1SO2qXukTPnA==
-
 ws@^7.2.5:
   version "7.2.5"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.2.5.tgz#abb1370d4626a5a9cd79d8de404aa18b3465d10d"
