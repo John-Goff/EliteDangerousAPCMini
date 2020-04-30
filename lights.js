@@ -44,6 +44,9 @@ const ED_InFighter          = 0x0000000002000000
 const ED_InSRV              = 0x0000000004000000
 const ED_HudInAnalysisMode  = 0x0000000008000000
 const ED_NightVision        = 0x0000000010000000
+const ED_AltitudeFromRadius = 0x0000000020000000
+const ED_FSDJump            = 0x0000000040000000
+const ED_SRVHighBeams       = 0x0000000080000000
 
 // Masks
 const ED_CantFSD = ED_LandingGearDown | ED_HardpointsDeployed | ED_CargoScoopDeployed | ED_FSDMassLocked | ED_FSDCooldown | ED_InFighter | ED_InSRV;
@@ -83,9 +86,9 @@ function resetLightsToStarter(midiout) {
 function updateLights(midiout, payload) {
   if (payload.Pips && Array.isArray(payload.Pips)) {
     [sys, eng, wep] = payload.Pips;
-    setPipLights(midiout, sys, 05)
-    setPipLights(midiout, eng, 14)
-    setPipLights(midiout, wep, 07)
+    setPipLights(midiout, sys, 05);
+    setPipLights(midiout, eng, 14);
+    setPipLights(midiout, wep, 07);
   }
 
   setFocusLights(midiout, payload.GuiFocus || 0);
@@ -139,7 +142,9 @@ function setFlagLights(midiout, flag) {
     setLights(midiout, 28, YELLOW);
   }
 
-  if (flag & ED_LightsOn) {
+  if (flag & ED_SRVHighBeams) {
+    setLights(midiout, 35, RED_FLASH);
+  } else if (flag & ED_LightsOn) {
     setLights(midiout, 35, RED);
   } else {
     setLights(midiout, 35, YELLOW);
@@ -157,7 +162,10 @@ function setFlagLights(midiout, flag) {
     setLights(midiout, 36, GREEN);
   }
 
-  if (flag & ED_CantFSD) {
+  if (flag & ED_FSDJump) {
+    setLights(midiout, 63, GREEN);
+    setLights(midiout, 55, GREEN);
+  } else if (flag & ED_CantFSD) {
     setLights(midiout, 63, RED);
     setLights(midiout, 55, RED);
   } else if (flag & ED_FSDCharging) {
@@ -172,6 +180,12 @@ function setFlagLights(midiout, flag) {
     setLights(midiout, 56, RED_FLASH);
   } else {
     setLights(midiout, 56, RED);
+  }
+
+  if (flag & ED_HudInAnalysisMode) {
+    setLights(midiout, 32, GREEN);
+  } else {
+    setLights(midiout, 32, RED);
   }
 }
 
