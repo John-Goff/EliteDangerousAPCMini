@@ -163,8 +163,8 @@ function setFlagLights(midiout, flag) {
   }
 
   if (flag & ED_FSDJump) {
-    setLights(midiout, 63, GREEN);
-    setLights(midiout, 55, GREEN);
+    setLights(midiout, 63, YELLOW);
+    setLights(midiout, 55, YELLOW);
   } else if (flag & ED_CantFSD) {
     setLights(midiout, 63, RED);
     setLights(midiout, 55, RED);
