@@ -61,7 +61,7 @@ function resetLightsToStarter(midiout) {
   setLights(midiout, 32, RED);
   setLights(midiout, 24, YELLOW);
   setLights(midiout, 08, RED);
-  setLights(midiout, 00, RED);
+  setLights(midiout, 00, GREEN);
   setLights(midiout, 57, GREEN);
   setLights(midiout, 58, YELLOW);
   setLights(midiout, 59, YELLOW);
@@ -148,6 +148,12 @@ function setFlagLights(midiout, flag) {
     setLights(midiout, 35, RED);
   } else {
     setLights(midiout, 35, YELLOW);
+  }
+
+  if (flag & ED_SilentRunning) {
+    setLights(midiout, 00, RED);
+  } else {
+    setLights(midiout, 00, GREEN);
   }
 
   if (flag & ED_CargoScoopDeployed) {

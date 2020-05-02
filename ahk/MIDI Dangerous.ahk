@@ -18,7 +18,7 @@ bindings := {	56	: "u"		; hardpoints
 	,	32	: "m"		; Mode switch
 	,	24	: "'"		; FSS
 	,	8	: "r"		; Thrust up
-	,	0	: "f"		; Thrust down
+	,	0	: "Delete"	; Silent Running
 	,	57	: "g"		; Next Target
 	,	58	: 1		; Contacts
 	,	59	: 2		; Comms
