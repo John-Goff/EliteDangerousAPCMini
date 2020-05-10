@@ -35,7 +35,7 @@ ws.on("message", (data) => {
   // new status event
   if (payload.event === "Loadout") {
     console.log(eventData);
-    updateCargoTotal(apcout, payload);
+    updateCargoTotal(payload);
   } else if (payload.event !== "Fileheader") {
     console.log(eventData);
     updateLights(apcout, payload);
