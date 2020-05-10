@@ -3,7 +3,13 @@
 // Imports
 const WebSocket = require('ws');
 const easymidi = require('easymidi');
-const { resetLightsToStarter, setLights, updateCargoTotal, updateLights } = require("./lights.js");
+const {
+  resetLightsToStarter,
+  setLights,
+  updateCargoTotal,
+  updateFuelTotal,
+  updateLights,
+} = require("./lights.js");
 
 // Set up MIDI input and output
 const outputName = easymidi.getOutputs().find((str) => str.startsWith("APC MINI"));
@@ -38,6 +44,7 @@ ws.on("message", (data) => {
   // new status event
   if (payload.event === "Loadout") {
     updateCargoTotal(payload);
+    updateFuelTotal(payload);
   } else if (payload.event === "LaunchSRV") {
     updateCargoTotal({ CargoCapacity: 2 });
   } else if (payload.event === "X-Status") {

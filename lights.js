@@ -51,8 +51,9 @@ const ED_SRVHighBeams       = 0x0000000080000000
 // Masks
 const ED_CantFSD = ED_LandingGearDown | ED_HardpointsDeployed | ED_CargoScoopDeployed | ED_FSDMassLocked | ED_FSDCooldown | ED_InFighter | ED_InSRV;
 
-// Starting total cargo capacity, will be updated every time a loadout event is recieved
+// Starting total cargo and fuel capacity, will be updated every time a loadout event is recieved
 let cargoCapacity = 1;
+let fuelCapacity = 1;
 
 function setLights(midiout, button, colour) {
   midiout.send("noteon", { note: button, velocity: colour });
@@ -98,6 +99,8 @@ function updateLights(midiout, payload) {
   setFlagLights(midiout, payload.Flags);
 
   setCargoLights(midiout, payload.Cargo || 0);
+
+  setFuelLights(midiout, payload.Fuel || { FuelMain: 0 });
 }
 
 function setPipLights(midiout, pips, id) {
@@ -210,10 +213,22 @@ function setCargoLights(midiout, cargo) {
   cargoLightNumbers.slice(numToLight).forEach(light => setLights(midiout, light, OFF));
 }
 
+function updateFuelTotal(payload) {
+  fuelCapacity = payload.FuelCapacity.Main;
+}
+
+function setFuelLights(midiout, fuel) {
+  const fuelLightNumbers = [89, 88, 87, 86, 85, 84, 83, 82];
+  const numToLight = Math.floor((fuel.FuelMain / fuelCapacity) * 8);
+  fuelLightNumbers.slice(0, numToLight).forEach(light => setLights(midiout, light, ON));
+  fuelLightNumbers.slice(numToLight).forEach(light => setLights(midiout, light, OFF));
+}
+
 // Exports
 module.exports = {
   resetLightsToStarter,
   setLights,
   updateCargoTotal,
+  updateFuelTotal,
   updateLights
 }
