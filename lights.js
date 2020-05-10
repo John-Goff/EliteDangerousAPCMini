@@ -96,6 +96,8 @@ function updateLights(midiout, payload) {
   setFocusLights(midiout, payload.GuiFocus || 0);
 
   setFlagLights(midiout, payload.Flags);
+
+  setCargoLights(midiout, payload.Cargo || 0);
 }
 
 function setPipLights(midiout, pips, id) {
@@ -198,7 +200,14 @@ function setFlagLights(midiout, flag) {
 }
 
 function updateCargoTotal(payload) {
-  console.log(payload.CargoCapacity);
+  cargoCapacity = payload.CargoCapacity;
+}
+
+function setCargoLights(midiout, cargo) {
+  const cargoLightNumbers = [64, 65, 66, 67, 68, 69, 70, 71];
+  const numToLight = Math.floor((cargo / cargoCapacity) * 8);
+  cargoLightNumbers.slice(0, numToLight).forEach(light => setLights(midiout, light, ON));
+  cargoLightNumbers.slice(numToLight).forEach(light => setLights(midiout, light, OFF));
 }
 
 // Exports
