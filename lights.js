@@ -51,6 +51,9 @@ const ED_SRVHighBeams       = 0x0000000080000000
 // Masks
 const ED_CantFSD = ED_LandingGearDown | ED_HardpointsDeployed | ED_CargoScoopDeployed | ED_FSDMassLocked | ED_FSDCooldown | ED_InFighter | ED_InSRV;
 
+// Starting total cargo capacity, will be updated every time a loadout event is recieved
+let cargoCapacity = 1;
+
 function setLights(midiout, button, colour) {
   midiout.send("noteon", { note: button, velocity: colour });
 }
@@ -194,9 +197,14 @@ function setFlagLights(midiout, flag) {
   }
 }
 
+function updateCargoTotal(payload) {
+  console.log(payload.CargoCapacity);
+}
+
 // Exports
 module.exports = {
   resetLightsToStarter,
   setLights,
+  updateCargoTotal,
   updateLights
 }
