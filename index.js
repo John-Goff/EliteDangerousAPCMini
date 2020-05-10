@@ -3,7 +3,7 @@
 // Imports
 const WebSocket = require('ws');
 const easymidi = require('easymidi');
-const { resetLightsToStarter, setLights, updateLights } = require("./lights.js");
+const { resetLightsToStarter, setLights, updateCargoTotal, updateLights } = require("./lights.js");
 
 // Set up MIDI input and output
 const outputName = easymidi.getOutputs().find((str) => str.startsWith("APC MINI"));
@@ -12,20 +12,20 @@ const apcout = new easymidi.Output(outputName);
 resetLightsToStarter(apcout);
 
 // Journal Server connection
-const ws = new WebSocket('ws://localhost:31337');
+const ws = new WebSocket("ws://localhost:31337");
 
-ws.on('open', () => {
+ws.on("open", () => {
   // we want to subscribe
-  const eventType = 'subscribe';
+  const eventType = "subscribe";
 
-  const payload = ['X-Status'];
+  const payload = ["X-Status", "Loadout"];
 
   // the server update our subscriptions
   ws.send(JSON.stringify({ type: eventType, payload }));
 });
 
 // Journal Server broadcast
-ws.on('message', (data) => {
+ws.on("message", (data) => {
   // parse our stringified JSON
   const eventData = JSON.parse(data);
 
@@ -33,7 +33,10 @@ ws.on('message', (data) => {
   const { payload } = eventData;
 
   // new status event
-  if (payload.event !== 'Fileheader') {
+  if (payload.event === "Loadout") {
+    console.log(eventData);
+    updateCargoTotal(apcout, payload);
+  } else if (payload.event !== "Fileheader") {
     console.log(eventData);
     updateLights(apcout, payload);
   }
