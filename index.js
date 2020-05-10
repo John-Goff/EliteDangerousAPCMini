@@ -18,7 +18,7 @@ ws.on("open", () => {
   // we want to subscribe
   const eventType = "subscribe";
 
-  const payload = ["X-Status", "Loadout"];
+  const payload = ["X-Status", "Loadout", "LaunchSRV"];
 
   // the server update our subscriptions
   ws.send(JSON.stringify({ type: eventType, payload }));
@@ -32,12 +32,15 @@ ws.on("message", (data) => {
   // extract Journal payload from broadcast
   const { payload } = eventData;
 
+  // log
+  if (payload.event !== "Fileheader") console.log(eventData);
+
   // new status event
   if (payload.event === "Loadout") {
-    console.log(eventData);
     updateCargoTotal(payload);
-  } else if (payload.event !== "Fileheader") {
-    console.log(eventData);
+  } else if (payload.event === "LaunchSRV") {
+    updateCargoTotal({ CargoCapacity: 2 });
+  } else if (payload.event === "X-Status") {
     updateLights(apcout, payload);
   }
 });
