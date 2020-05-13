@@ -64,6 +64,7 @@ function resetLightsToStarter(midiout) {
   setLights(midiout, 48, YELLOW);
   setLights(midiout, 32, RED);
   setLights(midiout, 24, YELLOW);
+  setLights(midiout, 08, YELLOW);
   setLights(midiout, 00, GREEN);
   setLights(midiout, 57, GREEN);
   setLights(midiout, 58, YELLOW);
