@@ -15,6 +15,9 @@ const {
 const outputName = easymidi.getOutputs().find((str) => str.startsWith("APC MINI"));
 const apcout = new easymidi.Output(outputName);
 
+// Store for planetary data
+const planets = {}
+
 resetLightsToStarter(apcout);
 
 // Journal Server connection
@@ -24,7 +27,7 @@ ws.on("open", () => {
   // we want to subscribe
   const eventType = "subscribe";
 
-  const payload = ["X-Status", "Loadout", "LaunchSRV"];
+  const payload = ["X-Status", "Loadout", "LaunchSRV", "Scan"];
 
   // the server update our subscriptions
   ws.send(JSON.stringify({ type: eventType, payload }));
@@ -49,6 +52,18 @@ ws.on("message", (data) => {
     updateCargoTotal({ CargoCapacity: 2 });
   } else if (payload.event === "X-Status") {
     updateLights(apcout, payload);
+  } else if (payload.event === "Scan") {
+    if (payload.SurfaceGravity !== undefined) {
+      if (planets[payload.BodyName] === undefined) {
+        planets[payload.BodyName] = {};
+      }
+      Object.entries(payload).forEach(([key, value]) => {
+        if (key !== "BodyName") {
+          planets[payload.BodyName][key] = value;
+        }
+      });
+    }
+    console.log(planets);
   }
 });
 
