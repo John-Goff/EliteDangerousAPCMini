@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "easymidi": "^1.0.3",
-    "ws": "^7.2.5"
+    "ws": "^7.4.6"
   }
 }
